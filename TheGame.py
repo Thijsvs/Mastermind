@@ -1,5 +1,7 @@
 from tkinter import *
 import random
+import itertools
+import bot
 
 class mastermind:
     def __init__(self):
@@ -8,17 +10,27 @@ class mastermind:
 
 
 
-    # basic setting for the game
-
+    # handmatig de code invullen
     def manualcode(self):
-    #geef code op
-    # code wordt ingesteld als code
-        return
+        self.colourcode = []
+        colours = ['red', 'pink', 'yellow', 'green', 'orange','blue']
+        print('red,', 'pink', ' yellow,', ' green,', ' orange,',' blue')
+        self.color1 = input('Vul uw 1e kleur in: ')
+        self.color2 = input('Vul uw 2e kleur in: ')
+        self.color3 = input('Vul uw 3e kleur in: ')
+        self.color4 = input('Vul uw 4e kleur in: ')
+        if self.color1 not in colours or self.color2 not in colours or self.color3 not in colours or self.color4 not in colours:
+            print('probeer het opnieuw')
+            mastermind.manualcode(self)
+        else:
+            self.colourcode = [self.color1, self.color2, self.color3, self.color4]
+            print(self.colourcode)
 
 
 
 
 
+    # de bot maakt de code
     def AIcode(self):
         colours = ['red', 'pink', 'yellow', 'green', 'orange','blue']
         self.colourcode = []
@@ -29,7 +41,7 @@ class mastermind:
 
 
 
-
+    # houdt het aantal pogingen bij, als de grens wordt overscheden wordt het spel stop gezet
     def pogingen(self):
         self.attempts += 1
         if self.attempts > 9:
@@ -44,7 +56,7 @@ class mastermind:
         else:
             mastermind.manualguess(self)
 
-
+    # handmatig de code van de bot oplossen
     def manualguess(self):
         self.correct = 0
         self.wrongplace = 0
@@ -73,7 +85,7 @@ class mastermind:
 
 
 
-
+    # buttons voor het handmatig raden
     def colourguess(self, guess):
 
         if guess == 1:
@@ -98,10 +110,8 @@ class mastermind:
             self.colours4.pop(0)
 
 
-    def AIguess(self):
-        return
 
-
+    # controle of de door de persoon opgegeven antwoorden kloppen
     def checkAwnsers(self):
         colours = ['red', 'pink', 'yellow', 'green', 'orange', 'blue']
         self.wrongplacecolours = []
@@ -217,6 +227,7 @@ class mastermind:
            mastermind.Finish(self)
 
 
+    # als de speler de code goed heeft ingeleverd krijgt de speler dit te zien
     def Finish(self):
         self.gefeliciteerdFrame = Frame(self.gameFrame, bg = 'green')
         self.gefeliciteerdFrame.place(y = 70, x = 100, height = 450, width= 200)
